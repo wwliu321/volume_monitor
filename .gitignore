@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.vercel
+
+# Cache and temp files
+node_modules/.cache
+react-scripts
+volume-monitor@0.1.0

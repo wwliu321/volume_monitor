@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import { Settings } from '../types';
 import { alertManager } from '../utils/alertManager';
@@ -15,25 +15,17 @@ interface SettingsPanelProps {
   onSettingsChange: (newSettings: Partial<Settings>) => void;
 }
 
-const Panel = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 280px;
+const PanelContainer = styled.div`
   background: white;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
   padding: 20px;
-  overflow-y: auto;
-  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
 `;
 
-const Title = styled.h3`
-  margin: 0 0 24px 0;
-  font-size: 16px;
-  color: #333;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
+const Title = styled.h2`
+  margin: 0 0 20px 0;
+  color: #2196f3;
 `;
 
 const Section = styled.div`
@@ -152,12 +144,11 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
 
   const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
-    console.log('Duration changing to:', newValue);
     onSettingsChange({ lowVolumeDuration: newValue });
   };
 
   return (
-    <Panel>
+    <PanelContainer>
       <Title>个性化设置</Title>
 
       <Section>
@@ -204,9 +195,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             <span>目标音量</span>
             <span>{percentToDecibel(settings.threshold)} 分贝</span>
           </Label>
-          <HelpText>
-            建议保持在60分贝左右
-          </HelpText>
+          <HelpText>建议保持在60分贝左右</HelpText>
           <Slider
             type="range"
             min="0"
@@ -222,9 +211,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
             <span>提醒间隔</span>
             <span>{(settings.lowVolumeDuration / 1000).toFixed(1)}秒</span>
           </Label>
-          <HelpText>
-            当音量持续偏低时，多久提醒一次
-          </HelpText>
+          <HelpText>当音量持续偏低时，多久提醒一次</HelpText>
           <Slider
             type="range"
             min="1000"
@@ -235,6 +222,6 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
           />
         </SettingItem>
       </Section>
-    </Panel>
+    </PanelContainer>
   );
 }; 

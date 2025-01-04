@@ -11,6 +11,9 @@ const Container = styled.div`
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const WelcomeSection = styled.div`
@@ -38,6 +41,15 @@ const MainContent = styled.div`
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+`;
+
+const SettingsWrapper = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const VolumeSection = styled.div`
@@ -202,18 +214,20 @@ export const AudioTest: React.FC = () => {
             </ErrorMessage>
           )}
         </MainContent>
+        
+        <SettingsWrapper>
+          <SettingsPanel
+            settings={{
+              threshold,
+              lowVolumeDuration,
+              textAlerts: settings.textAlertEnabled,
+              soundAlerts: settings.soundAlertEnabled,
+              alertVolume: settings.alertVolume
+            }}
+            onSettingsChange={handleSettingsChange}
+          />
+        </SettingsWrapper>
       </Container>
-      
-      <SettingsPanel
-        settings={{
-          threshold,
-          lowVolumeDuration,
-          textAlerts: settings.textAlertEnabled,
-          soundAlerts: settings.soundAlertEnabled,
-          alertVolume: settings.alertVolume
-        }}
-        onSettingsChange={handleSettingsChange}
-      />
     </>
   );
 }; 
